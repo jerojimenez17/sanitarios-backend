@@ -99,6 +99,9 @@ app.get("/api/productos/fg", (req, res) => {
     }))
   );
 });
+app.get("/", (req, res) => {
+  res.send("success");
+});
 
 app.get("/api/productos/bethular", (req, res) => {
   const products = readExcelFile(
