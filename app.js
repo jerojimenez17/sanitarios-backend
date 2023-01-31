@@ -124,7 +124,7 @@ app.get("/api/productos/paulo", (req, res) => {
   const products = readExcelFile(
     1,
     [0, 1, -1, -1, 2],
-    "./excel-files/paulo1.xlsx"
+    "./excel-files/paulo.xlsx"
   );
   res.send(
     products.map((product) => ({
@@ -137,7 +137,7 @@ app.get("/api/productos/paulo/:id", (req, res) => {
   const products = readExcelFile(
     1,
     [0, 1, -1, -1, 2],
-    "./excel-files/paulo1.xlsx"
+    "./excel-files/paulo.xlsx"
   );
   res.send(
     products
