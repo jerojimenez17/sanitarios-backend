@@ -36,7 +36,7 @@ module.exports = function readExcelFile(initRows, columns, filePath) {
       // create new product
       if (codeCell) {
         product = {
-          id: filePath.split("/")[2].split(".")[0] + i++,
+          id: filePath.split("/")[2].split(".")[0] + "-" + i++,
           cod: codeCell?.v,
           description: descriptionCell?.v,
           brand: columns[2] != -1 ? brandCell?.v : "",
