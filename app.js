@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const readExcelFile = require("./utils/readExcelFile");
 var cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -356,7 +357,8 @@ app.get("/api/productos/ciardi/:id", (req, res) => {
   );
 });
 // start server
-const Port = process.env.PORT || 3002;
+const Port = process.env.PORT;
 app.listen(Port, () => {
-  console.log("Listening in port 3002");
+  console.log(process.env);
+  console.log(`Listening in port ${process.env.PORT}`);
 });
