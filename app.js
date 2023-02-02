@@ -357,8 +357,7 @@ app.get("/api/productos/ciardi/:id", (req, res) => {
   );
 });
 // start server
-const Port = process.env.PORT;
+const Port = process.env.PORT || 3002;
 app.listen(Port, () => {
-  console.log(process.env);
   console.log(`Listening in port ${process.env.PORT}`);
 });
