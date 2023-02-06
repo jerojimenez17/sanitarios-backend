@@ -37,7 +37,7 @@ app.get("/api/productos/taladro/:id", (req, res) => {
 
   res.send(
     products.filter((product) => {
-      return product.id === req.params.id;
+      return product.cod === req.params.cod;
     })
   );
 });
