@@ -28,7 +28,7 @@ app.get("/api/productos/taladro", (req, res) => {
 
   res.send(products.map((product) => ({ ...product, price: product.price })));
 });
-app.get("/api/productos/taladro/:id", (req, res) => {
+app.get("/api/productos/taladro/:id/:description", (req, res) => {
   const products = readExcelFile(
     4,
     [0, 1, -1, 6, 7],
@@ -37,7 +37,7 @@ app.get("/api/productos/taladro/:id", (req, res) => {
 
   res.send(
     products.filter((product) => {
-      return product.cod == req.params.id;
+      return product.cod == req.params.id && product.description==req.params.description;
     })
   );
 });
