@@ -38,11 +38,14 @@ app.get("/api/productos/taladro/:id/:desc", (req, res) => {
   res.send(
     products.filter((product) => {
       return (
-        product.cod == req.params.id &&
+        product.cod
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
         product.description
           .toString()
           .toLocaleLowerCase()
-          .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
       );
     })
   );
@@ -92,11 +95,14 @@ app.get("/api/productos/trebol/:id/:desc", (req, res) => {
     .filter((product) =>
       products.filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
     );
@@ -130,11 +136,14 @@ app.get("/api/productos/cerrajeria/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -166,11 +175,14 @@ app.get("/api/productos/paulo/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -202,11 +214,14 @@ app.get("/api/productos/nexo/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -232,12 +247,14 @@ app.get("/api/productos/fg/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod.toString().toLocaleLowerCase().replace(/\//g, "-") ==
-            req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -273,11 +290,14 @@ app.get("/api/productos/bethular/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -295,11 +315,14 @@ app.get("/api/productos/jm/:id/:desc", (req, res) => {
       .map((product) => ({ ...product, price: product.price * 1.5 }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -325,11 +348,14 @@ app.get("/api/productos/paulo/:id/:desc", (req, res) => {
       .map((product) => ({ ...product, price: product.price * 1.5 }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -364,11 +390,14 @@ app.get("/api/productos/foxs/:id/:desc", (req, res) => {
       }))
       .filter((product) => {
         return (
-          product.cod == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
@@ -414,11 +443,14 @@ app.get("/api/productos/ciardi/:id/:desc", (req, res) => {
       )
       .filter((product) => {
         return (
-          product.cod.toString().toLocaleLowerCase() == req.params.id &&
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
           product.description
             .toString()
             .toLocaleLowerCase()
-            .replace(/\s/g, "-") == req.params.desc.toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
         );
       })
   );
