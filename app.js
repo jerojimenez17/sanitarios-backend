@@ -28,7 +28,7 @@ app.get("/api/productos/taladro", (req, res) => {
 
   res.send(products.map((product) => ({ ...product, price: product.price })));
 });
-app.get("/api/productos/taladro/:id/:description", (req, res) => {
+app.get("/api/productos/taladro/:id/:desc", (req, res) => {
   const products = readExcelFile(
     4,
     [0, 1, -1, 6, 7],
@@ -37,7 +37,16 @@ app.get("/api/productos/taladro/:id/:description", (req, res) => {
 
   res.send(
     products.filter((product) => {
-      return product.cod == req.params.id && product.description==req.params.description;
+      return (
+        product.cod
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+        product.description
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+      );
     })
   );
 });
@@ -64,7 +73,7 @@ app.get("/api/productos/trebol", (req, res) => {
   );
 });
 
-app.get("/api/productos/trebol/:id", (req, res) => {
+app.get("/api/productos/trebol/:id/:desc", (req, res) => {
   const products = readExcelFile(
     3,
     [0, 1, -1, 3, 2],
@@ -85,7 +94,16 @@ app.get("/api/productos/trebol/:id", (req, res) => {
     )
     .filter((product) =>
       products.filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
     );
   res.send(products);
@@ -104,7 +122,7 @@ app.get("/api/productos/cerrajeria", (req, res) => {
     }))
   );
 });
-app.get("/api/productos/cerrajeria/:id", (req, res) => {
+app.get("/api/productos/cerrajeria/:id/:desc", (req, res) => {
   const products = readExcelFile(
     6,
     [3, 1, 0, -1, 2],
@@ -117,7 +135,16 @@ app.get("/api/productos/cerrajeria/:id", (req, res) => {
         price: product.price * 1.11 * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -134,7 +161,7 @@ app.get("/api/productos/paulo", (req, res) => {
     }))
   );
 });
-app.get("/api/productos/paulo/:id", (req, res) => {
+app.get("/api/productos/paulo/:id/:desc", (req, res) => {
   const products = readExcelFile(
     1,
     [0, 1, -1, -1, 2],
@@ -147,7 +174,16 @@ app.get("/api/productos/paulo/:id", (req, res) => {
         price: product.price * 1.11 * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -164,7 +200,7 @@ app.get("/api/productos/nexo", (req, res) => {
     }))
   );
 });
-app.get("/api/productos/nexo/:id", (req, res) => {
+app.get("/api/productos/nexo/:id/:desc", (req, res) => {
   const products = readExcelFile(
     23,
     [0, 2, -1, -1, 9],
@@ -177,7 +213,16 @@ app.get("/api/productos/nexo/:id", (req, res) => {
         price: product.price * 1.21 * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -191,7 +236,7 @@ app.get("/api/productos/fg", (req, res) => {
     }))
   );
 });
-app.get("/api/productos/fg/:id", (req, res) => {
+app.get("/api/productos/fg/:id/:desc", (req, res) => {
   const products = readExcelFile(5, [0, 1, 2, -1, 3], "./excel-files/fg.xlsx");
   res.send(
     products
@@ -201,7 +246,16 @@ app.get("/api/productos/fg/:id", (req, res) => {
           (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -222,7 +276,7 @@ app.get("/api/productos/bethular", (req, res) => {
     }))
   );
 });
-app.get("/api/productos/bethular/:id", (req, res) => {
+app.get("/api/productos/bethular/:id/:desc", (req, res) => {
   const products = readExcelFile(
     6,
     [1, 2, -1, -1, 3],
@@ -235,7 +289,16 @@ app.get("/api/productos/bethular/:id", (req, res) => {
         price: product.price * 1.21 * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -245,13 +308,22 @@ app.get("/api/productos/jm", (req, res) => {
     products.map((product) => ({ ...product, price: product.price * 1.5 }))
   );
 });
-app.get("/api/productos/jm/:id", (req, res) => {
+app.get("/api/productos/jm/:id/:desc", (req, res) => {
   const products = readExcelFile(2, [0, 1, 2, -1, 4], "./excel-files/jm.xlsx");
   res.send(
     products
       .map((product) => ({ ...product, price: product.price * 1.5 }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -265,7 +337,7 @@ app.get("/api/productos/paulo", (req, res) => {
     products.map((product) => ({ ...product, price: product.price * 1.5 }))
   );
 });
-app.get("/api/productos/paulo/:id", (req, res) => {
+app.get("/api/productos/paulo/:id/:desc", (req, res) => {
   const products = readExcelFile(
     1,
     [0, 1, -1, -1, 2],
@@ -275,7 +347,16 @@ app.get("/api/productos/paulo/:id", (req, res) => {
     products
       .map((product) => ({ ...product, price: product.price * 1.5 }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -294,7 +375,7 @@ app.get("/api/productos/foxs", (req, res) => {
   );
 });
 
-app.get("/api/productos/foxs/:id", (req, res) => {
+app.get("/api/productos/foxs/:id/:desc", (req, res) => {
   const products = readExcelFile(
     2,
     [0, 1, -1, -1, 2],
@@ -308,7 +389,16 @@ app.get("/api/productos/foxs/:id", (req, res) => {
           (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.5,
       }))
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
@@ -332,7 +422,7 @@ app.get("/api/productos/ciardi", (req, res) => {
     )
   );
 });
-app.get("/api/productos/ciardi/:id", (req, res) => {
+app.get("/api/productos/ciardi/:id/:desc", (req, res) => {
   const products = readExcelFile(
     12,
     [3, 4, 5, 6, 7],
@@ -352,7 +442,16 @@ app.get("/api/productos/ciardi/:id", (req, res) => {
             }
       )
       .filter((product) => {
-        return product.id === req.params.id;
+        return (
+          product.cod
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+          product.description
+            .toString()
+            .toLocaleLowerCase()
+            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+        );
       })
   );
 });
