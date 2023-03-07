@@ -1,12 +1,16 @@
 const xslx = require("xlsx");
 
-module.exports = function readExcelFile(initRows, columns, filePath) {
+module.exports = function readExcelFile(cantSheets,initRows, columns, filePath) {
   try {
     let obj = [];
     const workbook = xslx.readFile("" + filePath);
-
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    let x=0;
     const products = [];
+    for(x=0;x<cantSheets;x++){
+
+
+    const sheet = workbook.Sheets[workbook.SheetNames[x]];
+
     let product = {};
     let i = 0;
     var range = xslx.utils.decode_range(sheet["!ref"]);
@@ -47,6 +51,7 @@ module.exports = function readExcelFile(initRows, columns, filePath) {
         // add product to list
         products.push(product);
       }
+    }
     }
     return products;
   } catch (error) {
