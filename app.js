@@ -151,7 +151,7 @@ app.get("/api/productos/cerrajeria/:id/:desc", (req, res) => {
 app.get("/api/productos/paulo", (req, res) => {
   const products = readExcelFile(1,
     1,
-    [0, 1, -1, -1, 2],
+    [0, 1, 3, -1, 2],
     "./excel-files/paulo.xlsx"
   );
   res.send(
@@ -164,7 +164,7 @@ app.get("/api/productos/paulo", (req, res) => {
 app.get("/api/productos/paulo/:id/:desc", (req, res) => {
   const products = readExcelFile(1,
     1,
-    [0, 1, -1, -1, 2],
+    [0, 1, 3, -1, 2],
     "./excel-files/paulo.xlsx"
   );
   res.send(
@@ -232,7 +232,7 @@ app.get("/api/productos/fg", (req, res) => {
     products.map((product) => ({
       ...product,
       price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.5,
+        (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.7,
     }))
   );
 });
@@ -243,7 +243,7 @@ app.get("/api/productos/fg/:id/:desc", (req, res) => {
       .map((product) => ({
         ...product,
         price:
-          (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.5,
+          (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 1.7,
       }))
       .filter((product) => {
         return (
@@ -263,30 +263,32 @@ app.get("/", (req, res) => {
   res.send("success");
 });
 
-app.get("/api/productos/bethular", (req, res) => {
-  const products = readExcelFile(1,
-    6,
-    [1, 2, -1, -1, 3],
-    "./excel-files/bethular.xlsx"
+app.get("/api/productos/luccini", (req, res) => {
+  const products = readExcelFile(7,
+    1,
+    [0, 1, 2, -1, 3],
+    "./excel-files/Luccini.xlsx"
   );
   res.send(
     products.map((product) => ({
       ...product,
-      price: product.price * 1.21 * 1.5,
+      price:
+        (parseFloat(product.price)*1.21  - (parseFloat(product.price)*1.21 * 0.08))* 1.5,
     }))
   );
 });
-app.get("/api/productos/bethular/:id/:desc", (req, res) => {
-  const products = readExcelFile(1,
-    6,
-    [1, 2, -1, -1, 3],
-    "./excel-files/bethular.xlsx"
+app.get("/api/productos/luccini/:id/:desc", (req, res) => {
+  const products = readExcelFile(7,
+    1,
+    [0, 1, 2, -1, 3],
+    "./excel-files/Luccini.xlsx"
   );
   res.send(
     products
       .map((product) => ({
         ...product,
-        price: product.price * 1.21 * 1.5,
+        price:
+          parseFloat(product.price)*1.21  - (parseFloat(product.price) * 0.08)* 1.5,
       }))
       .filter((product) => {
         return (
@@ -327,39 +329,39 @@ app.get("/api/productos/jm/:id/:desc", (req, res) => {
       })
   );
 });
-app.get("/api/productos/paulo", (req, res) => {
-  const products = readExcelFile(1,
-    1,
-    [0, 1, -1, -1, 2],
-    "./excel-files/paulo.xlsx"
-  );
-  res.send(
-    products.map((product) => ({ ...product, price: product.price * 1.5 }))
-  );
-});
-app.get("/api/productos/paulo/:id/:desc", (req, res) => {
-  const products = readExcelFile(1,
-    1,
-    [0, 1, -1, -1, 2],
-    "./excel-files/paulo.xlsx"
-  );
-  res.send(
-    products
-      .map((product) => ({ ...product, price: product.price * 1.5 }))
-      .filter((product) => {
-        return (
-          product.cod
-            .toString()
-            .toLocaleLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
-          product.description
-            .toString()
-            .toLocaleLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
-        );
-      })
-  );
-});
+// app.get("/api/productos/paulo", (req, res) => {
+//   const products = readExcelFile(1,
+//     1,
+//     [0, 1, -1, -1, 2],
+//     "./excel-files/paulo.xlsx"
+//   );
+//   res.send(
+//     products.map((product) => ({ ...product, price: product.price * 1.5 }))
+//   );
+// });
+// app.get("/api/productos/paulo/:id/:desc", (req, res) => {
+//   const products = readExcelFile(1,
+//     1,
+//     [0, 1, -1, -1, 2],
+//     "./excel-files/paulo.xlsx"
+//   );
+//   res.send(
+//     products
+//       .map((product) => ({ ...product, price: product.price * 1.5 }))
+//       .filter((product) => {
+//         return (
+//           product.cod
+//             .toString()
+//             .toLocaleLowerCase()
+//             .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+//           product.description
+//             .toString()
+//             .toLocaleLowerCase()
+//             .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+//         );
+//       })
+//   );
+// });
 app.get("/api/productos/foxs", (req, res) => {
   const products = readExcelFile(1,
     2,
@@ -375,6 +377,88 @@ app.get("/api/productos/foxs", (req, res) => {
   );
 });
 
+
+app.get("/api/productos/martin", (req, res) => {
+  const products = readExcelFile(1,
+    2,
+    [0, 1, 3, -1, 2],
+    "./excel-files/martin.xlsx"
+  );
+  res.send(
+    products.map((product) => ({
+      ...product,
+      price:
+        parseFloat(product.price)* 1.5,
+    }))
+  );
+});
+
+app.get("/api/productos/ferrum", (req, res) => {
+  const products = readExcelFile(1,
+    2,
+    [0, 1, 2, -1, 3],
+    "./excel-files/ferrum.xlsx"
+  );
+  res.send(
+    products.map((product) => ({
+      ...product,
+      price:
+        parseFloat(product.price)*1.21  - (parseFloat(product.price) * 0.08)* 1.5,
+    }))
+  );
+});
+app.get("/api/productos/martin/:id/:desc", (req, res) => {
+  const products = readExcelFile(1,
+    2,
+    [0, 1, 3, -1, 2],
+    "./excel-files/martin.xlsx"
+  );
+  res.send(
+    products.map((product) => ({
+      ...product,
+      price:
+        parseFloat(product.price)* 1.5,
+    }))
+    .filter((product)=>{
+      return (
+        product.cod
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+        product.description
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+      );
+    })
+  );
+});
+app.get("/api/productos/ferrum/:id/:desc", (req, res) => {
+  const products = readExcelFile(1,
+    2,
+    [0, 1, 3, -1, 2],
+    "./excel-files/ferrum.xlsx"
+  );
+  res.send(
+    products.map((product) => ({
+      ...product,
+      price:
+        (parseFloat(product.price)  - (parseFloat(product.price) *1.21* 0.08))* 1.5,
+    }))
+    .filter((product)=>{
+      return (
+        product.cod
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.id &&
+        product.description
+          .toString()
+          .toLocaleLowerCase()
+          .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
+      );
+    })
+  );
+});
 app.get("/api/productos/foxs/:id/:desc", (req, res) => {
   const products = readExcelFile(1,
     2,
