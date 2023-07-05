@@ -10,7 +10,7 @@ module.exports.getProducts = (req, res) => {
   res.send(
     products.map((product) => ({
       ...product,
-      price: product.price * 1.11 * 1.6,
+      price: product.price * 1.11 * 1.5,
     }))
   );
 };
@@ -26,7 +26,7 @@ module.exports.getProduct = (req, res) => {
     products
       .map((product) => ({
         ...product,
-        price: product.price * 1.11 * 1.6,
+        price: product.price * 1.5,
       }))
       .filter((product) => {
         return (
