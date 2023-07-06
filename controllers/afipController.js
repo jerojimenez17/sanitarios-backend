@@ -1,8 +1,8 @@
 const Afip = require("@afipsdk/afip.js");
 
-const afip = new Afip({ CUIT: process.env.CUIT });
+const afip = new Afip({ CUIT: process.env.CUIT, production: true });
 module.exports.generateVoucher = async (req, res) => {
-  const { items, billingData } = req.body;
+  const { cartState } = req.body;
 
   /**
    * Numero del punto de venta
@@ -12,7 +12,7 @@ module.exports.generateVoucher = async (req, res) => {
   /**
    * Tipo de factura
    **/
-  const tipo_de_factura = billingData.type; // 11 = Factura C
+  const tipo_de_factura = 11; // 11 = Factura C
 
   /**
    * Número de la ultima Factura C
@@ -43,12 +43,23 @@ module.exports.generateVoucher = async (req, res) => {
    * 96 = DNI
    * 99 = Consumidor Final
    **/
-  const tipo_de_documento = billingData.client.docType;
+  const tipo_de_documento =
+    (cartState.typeDocument === "CUIT" || cartState.typeDocument === "DNI") &&
+    Number(cartState.documentNumber) > 0
+      ? cartState.typeDocument === "DNI"
+        ? 96
+        : 80
+      : 99;
+  // cartState.IVACondition == "Consumidor Final" ? 99 : 80;
 
   /**
    * Numero de documento del comprador (0 para consumidor final)
    **/
-  const numero_de_documento = billingData.client.docNumber;
+  const numero_de_documento =
+    cartState.IVACondition == "Consumidor Final" &&
+    Number(cartState.documentNumber) === 0
+      ? 0
+      : cartState.documentNumber;
 
   /**
    * Numero de factura
@@ -65,9 +76,9 @@ module.exports.generateVoucher = async (req, res) => {
   /**
    * Importe de la Factura
    **/
-  const importe_total = items.reduce(
-    (acc, item) => acc + item.price * item.amount
-  );
+  const importe_total = cartState.products
+    .reduce((acc, item) => acc + item.price * item.amount, 0)
+    .toFixed(2);
 
   /**
    * Los siguientes campos solo son obligatorios para los conceptos 2 y 3
@@ -115,29 +126,47 @@ module.exports.generateVoucher = async (req, res) => {
     ImpTrib: 0, //Importe total de tributos
     MonId: "PES", //Tipo de moneda usada en la factura ('PES' = pesos argentinos)
     MonCotiz: 1, // Cotización de la moneda usada (1 para pesos argentinos)
-
-    IVA:
-      billingData.client.coditionIVA === "Excento"
-        ? [
-            {
-              Id: 3,
-              baseImp: importe_total,
-              importe: 0,
-            },
-          ]
-        : [],
   };
 
   /**
    * Creamos la Factura
    **/
-  const resp = await afip.ElectronicBilling.createVoucher(data);
+  try {
+    const resp = await afip.ElectronicBilling.createVoucher(data);
+
+    /**
+     * Mostramos por pantalla los datos de la nueva Factura
+     **/
+    console.log({
+      cae: resp.CAE, //CAE asignado a la Factura
+      vencimiento: resp.CAEFchVto, //Fecha de vencimiento del CAE
+      tipo_de_documento: tipo_de_documento,
+      numero_de_documento: cartState.documentNumber,
+    });
+    res.send({
+      afip: resp,
+      ptoVenta: process.env.PUNTOVENTA,
+      nroCbte: last_voucher + 1,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+module.exports.getCustomer = async (req, res) => {
+  const cuit = req.params.cuit;
 
   /**
-   * Mostramos por pantalla los datos de la nueva Factura
+   * Obtenemos los datos del contribuyente
    **/
-  console.log({
-    cae: resp.CAE, //CAE asignado a la Factura
-    vencimiento: resp.CAEFchVto, //Fecha de vencimiento del CAE
-  });
+  const datos = await afip.RegisterScopeFive.getTaxpayerDetails(cuit);
+
+  if (!datos) {
+    console.log("El contribuyente no existe en el padrón alcance 4.");
+  } else {
+    /**
+     * Mostramos por pantalla los datos del contribuyente
+     **/
+    console.log(datos);
+    res.send(datos);
+  }
 };
