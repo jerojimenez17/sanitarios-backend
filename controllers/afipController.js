@@ -134,6 +134,21 @@ module.exports.generateVoucher = async (req, res) => {
   try {
     const resp = await afip.ElectronicBilling.createVoucher(data);
 
+    const qrData = {
+      ver: 1,
+      fecha: parseInt(date.replace(/-/g, "")),
+      cuit: process.env.CUIT,
+      ptoVta: process.env.PtVta,
+      tipoCmp: type,
+      nroCmp: lastVoucher + 1,
+      importe: 12100,
+      moneda: "PES",
+      ctz: 1,
+      tipoDocRec: tipo_de_documento,
+      nroDocRec: numero_de_documento,
+      tipoCodAut: "E",
+      codAut: resp["CAE"],
+    };
     /**
      * Mostramos por pantalla los datos de la nueva Factura
      **/
@@ -147,6 +162,7 @@ module.exports.generateVoucher = async (req, res) => {
       afip: resp,
       ptoVenta: process.env.PUNTOVENTA,
       nroCbte: last_voucher + 1,
+      qrData: `https://www.afip.gob.ar/fe/qr/?p=${JSON.stringify(qrData)}`,
     });
   } catch (error) {
     console.error(error);
