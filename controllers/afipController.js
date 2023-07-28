@@ -136,7 +136,7 @@ module.exports.generateVoucher = async (req, res) => {
 
     const qrData = {
       ver: 1,
-      fecha: parseInt(date.replace(/-/g, "")),
+      fecha: parseInt(fecha.replace(/-/g, "")),
       cuit: process.env.CUIT,
       ptoVta: process.env.PtVta,
       tipoCmp: type,
