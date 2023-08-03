@@ -153,6 +153,7 @@ module.exports.generateVoucher = async (req, res) => {
      * Mostramos por pantalla los datos de la nueva Factura
      **/
     console.log({
+      datos: await afip.RegisterScopeFive.getTaxpayerDetails(cuit),
       cae: resp.CAE, //CAE asignado a la Factura
       vencimiento: resp.CAEFchVto, //Fecha de vencimiento del CAE
       tipo_de_documento: tipo_de_documento,
