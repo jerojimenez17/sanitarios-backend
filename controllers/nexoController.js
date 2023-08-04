@@ -3,7 +3,7 @@ const readExcelFile = require("../utils/readExcelFile");
 module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
-    23,
+    21,
     [1, 3, -1, -1, 10],
     "./excel-files/nexo.xlsx"
   );
@@ -18,7 +18,7 @@ module.exports.getProducts = (req, res) => {
 module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
-    23,
+    21,
     [1, 3, -1, -1, 10],
     "./excel-files/nexo.xlsx"
   );
