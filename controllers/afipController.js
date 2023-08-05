@@ -12,7 +12,7 @@ module.exports.generateVoucher = async (req, res) => {
   /**
    * Tipo de factura
    **/
-  const tipo_de_factura = 11; // 11 = Factura C
+  const tipo_de_factura = cartState.tipoFactura === "C" ? 11 : 13; // 11 = Factura C
 
   /**
    * Número de la ultima Factura C
@@ -43,6 +43,10 @@ module.exports.generateVoucher = async (req, res) => {
    * 96 = DNI
    * 99 = Consumidor Final
    **/
+  const punto_factura_asociada = punto_de_venta;
+  const numero_factura_asociada = cartState.nroAsociado;
+  const tipo_asociado = 11;
+
   const tipo_de_documento =
     (cartState.typeDocument === "CUIT" || cartState.typeDocument === "DNI") &&
     Number(cartState.documentNumber) > 0
@@ -87,7 +91,6 @@ module.exports.generateVoucher = async (req, res) => {
   const fecha_servicio_desde = null,
     fecha_servicio_hasta = null,
     fecha_vencimiento_pago = null;
-
   if (concepto === 2 || concepto === 3) {
     /**
      * Fecha de inicio de servicio en formato aaaammdd
@@ -102,9 +105,7 @@ module.exports.generateVoucher = async (req, res) => {
     /**
      * Fecha de vencimiento del pago en formato aaaammdd
      **/
-    const fecha_vencimiento_pago = 20191213;
   }
-
   const data = {
     CantReg: 1, // Cantidad de facturas a registrar
     PtoVta: punto_de_venta,
@@ -125,14 +126,46 @@ module.exports.generateVoucher = async (req, res) => {
     ImpIVA: 0,
     ImpTrib: 0, //Importe total de tributos
     MonId: "PES", //Tipo de moneda usada en la factura ('PES' = pesos argentinos)
-    MonCotiz: 1, // Cotización de la moneda usada (1 para pesos argentinos)
+    MonCotiz: 1, // C
   };
 
+  const dataCredito = {
+    CantReg: 1, // Cantidad de facturas a registrar
+    PtoVta: punto_de_venta,
+    CbteTipo: tipo_de_factura,
+    Concepto: concepto,
+    DocTipo: tipo_de_documento,
+    DocNro: numero_de_documento,
+    CbteDesde: numero_de_factura,
+    CbteHasta: numero_de_factura,
+    CbteFch: parseInt(fecha.replace(/-/g, "")),
+    FchServDesde: fecha_servicio_desde,
+    FchServHasta: fecha_servicio_hasta,
+    FchVtoPago: fecha_vencimiento_pago,
+    ImpTotal: importe_total,
+    ImpTotConc: 0, // Importe neto no gravado
+    ImpNeto: importe_total,
+    ImpOpEx: 0,
+    ImpIVA: 0,
+    ImpTrib: 0, //Importe total de tributos
+    MonId: "PES", //Tipo de moneda usada en la factura ('PES' = pesos argentinos)
+    MonCotiz: 1, // Cotización de la moneda usada (1 para pesos argentinos)
+
+    CbtesAsoc: [
+      {
+        Tipo: tipo_asociado,
+        PtoVta: punto_factura_asociada,
+        Nro: numero_factura_asociada,
+      },
+    ],
+  };
   /**
    * Creamos la Factura
    **/
   try {
-    const resp = await afip.ElectronicBilling.createVoucher(data);
+    const resp = await afip.ElectronicBilling.createVoucher(
+      cartState.tipoFactura === "C" ? data : dataCredito
+    );
 
     const qrData = {
       ver: 1,
