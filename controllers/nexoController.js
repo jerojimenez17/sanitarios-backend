@@ -4,7 +4,7 @@ module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
     21,
-    [1, 3, -1, -1, 10],
+    [2, 4, -1, -1, 11],
     "./excel-files/nexo.xlsx"
   );
   res.send(
@@ -19,7 +19,7 @@ module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
     21,
-    [1, 3, -1, -1, 10],
+    [2, 4, -1, -1, 11],
     "./excel-files/nexo.xlsx"
   );
   res.send(
