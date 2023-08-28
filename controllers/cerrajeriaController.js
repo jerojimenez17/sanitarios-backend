@@ -4,7 +4,7 @@ module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
     6,
-    [3, 1, 0, -1, 2],
+    [1, 2, 0, -1, 3],
     "./excel-files/cerrajeria.xlsx"
   );
   res.send(
@@ -19,14 +19,14 @@ module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
     6,
-    [3, 1, 0, -1, 2],
+    [1, 2, 0, -1, 3],
     "./excel-files/cerrajeria.xlsx"
   );
   res.send(
     products
       .map((product) => ({
         ...product,
-        price: product.price * 1.5,
+        price: product.price *1.1* 1.5,
       }))
       .filter((product) => {
         return (

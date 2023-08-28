@@ -11,7 +11,7 @@ module.exports.getProducts = (req, res) => {
     products.map((product) => ({
       ...product,
       price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 2 *  1.2,
+        (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 2,
     }))
   );
 };
@@ -28,7 +28,7 @@ module.exports.getProduct = (req, res) => {
       .map((product) => ({
         ...product,
         price:
-          (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 2 *1.2,
+          (parseFloat(product.price) - parseFloat(product.price) * 0.2) * 2,
       }))
       .filter((product) => {
         return (
