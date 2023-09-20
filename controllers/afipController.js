@@ -171,7 +171,7 @@ module.exports.generateVoucher = async (req, res) => {
       ver: 1,
       fecha: parseInt(fecha.replace(/-/g, "")),
       cuit: process.env.CUIT,
-      ptoVta: process.env.PtVta,
+      ptoVta: process.env.PUNTOVENTA,
       tipoCmp: tipo_de_factura,
       nroCmp: last_voucher + 1,
       importe: importe_total,
@@ -186,6 +186,7 @@ module.exports.generateVoucher = async (req, res) => {
      * Mostramos por pantalla los datos de la nueva Factura
      **/
     console.log({
+      qrData:qrData,
       cae: resp.CAE, //CAE asignado a la Factura
       vencimiento: resp.CAEFchVto, //Fecha de vencimiento del CAE
       tipo_de_documento: tipo_de_documento,
@@ -195,7 +196,7 @@ module.exports.generateVoucher = async (req, res) => {
       afip: resp,
       ptoVenta: process.env.PUNTOVENTA,
       nroCbte: last_voucher + 1,
-      qrData: `https://www.afip.gob.ar/fe/qr/?p=${JSON.stringify(qrData)}`,
+      qrData: `https://www.afip.gob.ar/fe/qr/?p=${btoa(JSON.stringify(qrData))}`,
     });
   } catch (error) {
     console.error(error);
