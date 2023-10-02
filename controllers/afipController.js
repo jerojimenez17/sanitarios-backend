@@ -7,7 +7,7 @@ module.exports.generateVoucher = async (req, res) => {
   /**
    * Numero del punto de venta
    **/
-  const punto_de_venta = process.env.PUNTOVENTA;
+  const punto_de_venta =parseInt(process.env.PUNTOVENTA);
 
   /**
    * Tipo de factura
@@ -82,7 +82,7 @@ module.exports.generateVoucher = async (req, res) => {
    **/
   const importe_total = cartState.products
     .reduce((acc, item) => acc + item.price * item.amount, 0)
-    .toFixed(2);
+    .toFixed();
 
   /**
    * Los siguientes campos solo son obligatorios para los conceptos 2 y 3
@@ -108,7 +108,7 @@ module.exports.generateVoucher = async (req, res) => {
   }
   const data = {
     CantReg: 1, // Cantidad de facturas a registrar
-    PtoVta: punto_de_venta,
+    PtoVta: parseInt(punto_de_venta),
     CbteTipo: tipo_de_factura,
     Concepto: concepto,
     DocTipo: tipo_de_documento,
@@ -131,7 +131,7 @@ module.exports.generateVoucher = async (req, res) => {
 
   const dataCredito = {
     CantReg: 1, // Cantidad de facturas a registrar
-    PtoVta: punto_de_venta,
+    PtoVta: parseInt(punto_de_venta),
     CbteTipo: tipo_de_factura,
     Concepto: concepto,
     DocTipo: tipo_de_documento,
@@ -154,7 +154,7 @@ module.exports.generateVoucher = async (req, res) => {
     CbtesAsoc: [
       {
         Tipo: tipo_asociado,
-        PtoVta: punto_factura_asociada,
+        PtoVta: parseInt(punto_factura_asociada),
         Nro: numero_factura_asociada,
       },
     ],
@@ -171,7 +171,7 @@ module.exports.generateVoucher = async (req, res) => {
       ver: 1,
       fecha: parseInt(fecha.replace(/-/g, "")),
       cuit: process.env.CUIT,
-      ptoVta: process.env.PUNTOVENTA,
+      ptoVta: parseInt(punto_de_venta),
       tipoCmp: tipo_de_factura,
       nroCmp: last_voucher + 1,
       importe: importe_total,
@@ -194,7 +194,7 @@ module.exports.generateVoucher = async (req, res) => {
     });
     res.send({
       afip: resp,
-      ptoVenta: process.env.PUNTOVENTA,
+      ptoVenta: parseInt(punto_de_venta),
       nroCbte: last_voucher + 1,
       qrData: `https://www.afip.gob.ar/fe/qr/?p=${btoa(JSON.stringify(qrData))}`,
     });

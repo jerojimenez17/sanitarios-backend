@@ -38,6 +38,14 @@ module.exports.getProduct = (req, res) => {
           .toLocaleLowerCase()
           .replace(/[^a-zA-Z0-9]/g, "") == req.params.desc.toLocaleLowerCase()
       );
-    })
+    }).map((product) => {
+      (product.iva==="A")?
+        product.price= product.price*1.21 :
+        (product.iva==="C")?
+          product.price=product.price*1.105:
+          product.price=product.price
+          return{ ...product,price:product.price*1.5}
+
+       })
   );
 };
