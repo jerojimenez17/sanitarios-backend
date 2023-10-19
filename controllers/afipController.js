@@ -80,9 +80,9 @@ module.exports.generateVoucher = async (req, res) => {
   /**
    * Importe de la Factura
    **/
-  const importe_total = cartState.products
+  const importe_total = parseFloat(cartState.products
     .reduce((acc, item) => acc + item.price * item.amount, 0)
-    .toFixed();
+    .toFixed());
 
   /**
    * Los siguientes campos solo son obligatorios para los conceptos 2 y 3
@@ -169,8 +169,8 @@ module.exports.generateVoucher = async (req, res) => {
 
     const qrData = {
       ver: 1,
-      fecha: parseInt(fecha.replace(/-/g, "")),
-      cuit: process.env.CUIT,
+      fecha: fecha,
+      cuit: parseInt(process.env.CUIT),
       ptoVta: parseInt(punto_de_venta),
       tipoCmp: tipo_de_factura,
       nroCmp: last_voucher + 1,
@@ -180,7 +180,7 @@ module.exports.generateVoucher = async (req, res) => {
       tipoDocRec: tipo_de_documento,
       nroDocRec: numero_de_documento,
       tipoCodAut: "E",
-      codAut: resp["CAE"],
+      codAut: parseInt(resp["CAE"]),
     };
     /**
      * Mostramos por pantalla los datos de la nueva Factura
