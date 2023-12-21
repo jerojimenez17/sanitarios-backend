@@ -4,7 +4,7 @@ module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
     6,
-    [1, 2, 0, -1, 3],
+    [3, 1, 0, -1, 2],
     "./excel-files/cerrajeria.xlsx"
   );
   res.send(

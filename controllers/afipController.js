@@ -196,7 +196,7 @@ module.exports.generateVoucher = async (req, res) => {
       afip: resp,
       ptoVenta: parseInt(punto_de_venta),
       nroCbte: last_voucher + 1,
-      qrData: `https://www.afip.gob.ar/fe/qr/?p=${btoa(JSON.stringify(qrData))}`,
+      qrData: `https://www.serviciosweb.afip.gob.ar/fe/qr/?p=${btoa(JSON.stringify(qrData))}`,
     });
   } catch (error) {
     console.error(error);
