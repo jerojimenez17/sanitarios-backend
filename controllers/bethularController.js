@@ -3,8 +3,8 @@ const readExcelFile = require("../utils/readExcelFile");
 module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
-    2,
-    [0, 1, 4, -1, 3],
+    1,
+    [0, 1, 3, -1, 2],
     "./excel-files/bethular.xlsx"
   );
   res.send(
@@ -19,8 +19,8 @@ module.exports.getProducts = (req, res) => {
 module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
-    2,
-    [0, 1, 4, -1, 3],
+    1,
+    [0, 1, 3, -1, 2],
     "./excel-files/foxs.xlsx"
   );
   res.send(
