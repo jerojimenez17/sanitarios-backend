@@ -2,25 +2,26 @@ const readExcelFile = require("../utils/readExcelFile");
 
 module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
-    7,
+    16,
     1,
-    [0, 1, 2, -1, 3],
+    [0, 1, -1, -1, 2],
     "./excel-files/Luccini.xlsx"
   );
   res.send(
     products.map((product) => ({
       ...product,
       price:
-        (parseFloat(product.price) * 1.21 ) * 1.5,
+      (product.description.includes("Ø"))? ((parseFloat(product.price) - parseFloat(product.price) *0.2) *1.21 *1.5)
+      :((parseFloat(product.price) - parseFloat(product.price) *0.08) *1.21 *1.5)
     }))
   );
 };
 
 module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
-    7,
+    16,
     1,
-    [0, 1, 2, -1, 3],
+    [0, 1, -1, -1, 2],
     "./excel-files/Luccini.xlsx"
   );
   res.send(
