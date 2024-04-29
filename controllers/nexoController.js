@@ -3,8 +3,8 @@ const readExcelFile = require("../utils/readExcelFile");
 module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
-    21,
-    [1, 3, -1, -1, 10],
+    12,
+    [0, 2, -1, -1, 3],
     "./excel-files/nexo.xlsx"
   );
   res.send(
@@ -18,8 +18,8 @@ module.exports.getProducts = (req, res) => {
 module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
-    21,
-    [1, 3, -1, -1, 10],
+    12,
+    [0, 2, -1, -1, 3],
     "./excel-files/nexo.xlsx"
   );
   res.send(
