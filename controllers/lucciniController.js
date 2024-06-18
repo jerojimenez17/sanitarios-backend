@@ -5,7 +5,7 @@ module.exports.getProducts = (req, res) => {
     16,
     1,
     [0, 1, -1, -1, 2],
-    "./excel-files/Luccini.xlsx"
+    "./excel-files/martin.xlsx"
   );
   res.send(
     products.map((product) => ({
@@ -22,7 +22,7 @@ module.exports.getProduct = (req, res) => {
     16,
     1,
     [0, 1, -1, -1, 2],
-    "./excel-files/Luccini.xlsx"
+    "./excel-files/martin.xlsx"
   );
   res.send(
     products
