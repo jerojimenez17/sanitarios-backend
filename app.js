@@ -30,6 +30,7 @@ const fgRouter = require("./routes/fgRoute");
 const lucciniRouter = require("./routes/lucciniRoute");
 const foxsRouter = require("./routes/foxsRoute");
 const bethularRouter = require("./routes/bethularRoute");
+const sergioRouter = require("./routes/sergioRoute");
 const afipRouter = require("./routes/afipRoute");
 
 app.use("/api/productos", taladroRouter);
@@ -41,6 +42,7 @@ app.use("/api/productos", nexoRouter);
 app.use("/api/productos", fgRouter);
 app.use("/api/productos", lucciniRouter);
 app.use("/api/productos", bethularRouter);
+app.use("/api/productos", sergioRouter);
 app.use("/api/productos", foxsRouter);
 app.use("/api/productos", jmRouter);
 app.use("/api", afipRouter);

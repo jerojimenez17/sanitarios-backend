@@ -4,14 +4,13 @@ module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
     1,
-    [0, 4, 3, -0, 5],
-    "./excel-files/bethular.xlsx"
+    [1, 2,-1 , -1, 3],
+    "./excel-files/sergio.xlsx"
   );
   res.send(
     products.map((product) => ({
       ...product,
-      price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.04 - parseFloat(product.price) * 0.09) *1.21 * 1.5,
+      price: parseFloat(product.price) * 1.6,
     }))
   );
 };
@@ -20,15 +19,15 @@ module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
     1,
-    [0, 4, 3, -1, 5],
-    "./excel-files/bethular.xlsx"
+    [1, 2, -1, -1, 3],
+    "./excel-files/sergio.xlsx"
   );
   res.send(
     products
       .map((product) => ({
         ...product,
         price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.04 - parseFloat(product.price) * 0.09) *1.21 * 1.5,
+        parseFloat(product.price) * 1.6,
       }))
       .filter((product) => {
         return (
