@@ -3,15 +3,16 @@ const readExcelFile = require("../utils/readExcelFile");
 module.exports.getProducts = (req, res) => {
   const products = readExcelFile(
     1,
-    1,
-    [0, 4, 3, -0, 5],
+    2,
+    [0, 3, 1, -1, 4],
     "./excel-files/bethular.xlsx"
   );
   res.send(
     products.map((product) => ({
       ...product,
-      price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.04 - parseFloat(product.price) * 0.09) *1.21 * 1.5,
+      price: parseFloat(product.price)* 1.5,
+
+
     }))
   );
 };
@@ -19,8 +20,8 @@ module.exports.getProducts = (req, res) => {
 module.exports.getProduct = (req, res) => {
   const products = readExcelFile(
     1,
-    1,
-    [0, 4, 3, -1, 5],
+    2,
+    [0, 3, 1, -1, 4],
     "./excel-files/bethular.xlsx"
   );
   res.send(
@@ -28,7 +29,7 @@ module.exports.getProduct = (req, res) => {
       .map((product) => ({
         ...product,
         price:
-        (parseFloat(product.price) - parseFloat(product.price) * 0.04 - parseFloat(product.price) * 0.09) *1.21 * 1.5,
+        parseFloat(product.price)* 1.5,
       }))
       .filter((product) => {
         return (
